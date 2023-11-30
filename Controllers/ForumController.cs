@@ -2,12 +2,14 @@
 using _5510_final_project_Forum.Models;
 using _5510_final_project_Forum.Models.ForumView;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace _5510_final_project_Forum.Controllers
 {
     public class ForumController : Controller
     {
         private readonly IForum _forumService;
+        private readonly IPost _postService;
         public ForumController(IForum formService)
         {
             _forumService = formService;
@@ -28,7 +30,14 @@ namespace _5510_final_project_Forum.Controllers
                 ForumList = forum
             };
 
-            return View();
+            return View(model);
+        }
+
+        public ActionResult Topic(int id) 
+        {
+            var forum = _forumService.GetById(id);
+            var posts = _postService.GetFilteredPosts(id);
+            var postListings = 
         }
     }
 }
