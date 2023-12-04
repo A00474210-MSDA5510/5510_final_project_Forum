@@ -26,6 +26,7 @@ namespace _5510_final_project_Forum.Controllers
                     Id = forum.Id,
                     Name = forum.Title,
                     Description = forum.Description,
+                    ImageUrl = forum.ImageUrl,
                 });
 
             var model = new ForumIndexModel
@@ -39,7 +40,7 @@ namespace _5510_final_project_Forum.Controllers
         public IActionResult Topic(int id) 
         {
             var forum = _forumService.GetById(id);
-            var posts = _postService.GetPostsByForum(id);
+            var posts = forum.Posts;
             var postListings = posts.Select(post => new PostListingModel
             {
                 Id = post.Id,
