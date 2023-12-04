@@ -26,15 +26,15 @@ namespace _5510_final_project_Forum.Controllers
                 AuthorName = post.User.UserName,
                 AuthorImageUrl = post.User.ProfileImageUrl,
                 AuthorRating = post.User.Rating,
-                Created = post.Created,
+                CreatedAt = post.Created,
                 PostContent = post.Content,
-                Replies = replies
+                //Replies = post.replies
 
             };
             return View();
         }
 
-        private IEnumberable<PostReplyModel> BuildPostReplies(IEnumerable<Replies> replies)
+        private IEnumerable<PostReplyModel> BuildPostReplies(IEnumerable<Replies> replies)
         {
             return replies.Select(reply => new PostReplyModel
             {
@@ -42,7 +42,7 @@ namespace _5510_final_project_Forum.Controllers
                 AuthorName = reply.User.UserName,
                 AuthorId = reply.User.Id,
                 AuthorImageUrl = reply.User.ProfileImageUrl,
-                AuthorRating = reply.User.Rating,
+                AuthorRating = reply.User.Rating.ToString(),
                 Created = reply.Created,
                 ReplyContent = reply.Content,
             });
