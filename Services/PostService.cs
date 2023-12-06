@@ -1,6 +1,7 @@
 ﻿using _5510_final_project_Forum.Data;
 using _5510_final_project_Forum.Models;
 using Microsoft.EntityFrameworkCore;
+
 using Microsoft.IdentityModel.Tokens;
 
 namespace _5510_final_project_Forum.Services
@@ -29,9 +30,9 @@ namespace _5510_final_project_Forum.Services
 
         public IEnumerable<Post> GetAll()
         {
-            IEnumerable<Post> test = _context.Post.Include(post => post.Id);
-            Console.WriteLine(test.Count());
-            return test;
+
+            var posts = _context.Post.ToList();
+            return posts;
         }
 
         public Post GetById(int id)

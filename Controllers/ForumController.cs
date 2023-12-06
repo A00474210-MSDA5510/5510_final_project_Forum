@@ -13,9 +13,10 @@ namespace _5510_final_project_Forum.Controllers
     {
         private readonly IForum _forumService;
         private readonly IPost _postService;
-        public ForumController(IForum formService)
+        public ForumController(IForum formService, IPost postService)
         {
             _forumService = formService;
+            _postService = postService;
         }
 
         public IActionResult Index()
