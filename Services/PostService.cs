@@ -29,7 +29,9 @@ namespace _5510_final_project_Forum.Services
 
         public IEnumerable<Post> GetAll()
         {
-            throw new NotImplementedException();
+            IEnumerable<Post> test = _context.Post.Include(post => post.Id);
+            Console.WriteLine(test.Count());
+            return test;
         }
 
         public Post GetById(int id)
@@ -49,9 +51,10 @@ namespace _5510_final_project_Forum.Services
 
         public IEnumerable<Post> GetPostsByForum(int id)
         {
-            return _context.Forums
-                .Where(forum => forum.Id == id).First()
-                .Posts;
+            IEnumerable<Post>  placeholderposts = new List<Post>(1);
+            placeholderposts.Append(GetById(1));
+            return placeholderposts;
+
         }
     }
 }

@@ -61,7 +61,13 @@ namespace _5510_final_project_Forum.Controllers
         private ForumListingModel BuildForumListing(Post post)
         {
             var forum = post.Forum;
-            return BuildForumListing(forum);
+            return new ForumListingModel
+            {
+                Id=forum.Id,
+                Name = forum.Title,
+                Description = forum.Description,
+                ImageUrl = forum.ImageUrl,
+            };
         }
 
         private ForumListingModel BuildForumListing(Forum forum)
