@@ -31,7 +31,7 @@ namespace _5510_final_project_Forum.Controllers
                 Replies = post.Replies,
 
             };
-            return View();
+            return View(model);
         }
 
         private IEnumerable<PostReplyModel> BuildPostReplies(IEnumerable<Replies> replies)

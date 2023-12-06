@@ -3,9 +3,7 @@ using _5510_final_project_Forum.Models;
 using _5510_final_project_Forum.Models.ForumView;
 using _5510_final_project_Forum.Models.PostModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
+
 
 namespace _5510_final_project_Forum.Controllers
 {
