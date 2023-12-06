@@ -28,7 +28,7 @@ namespace _5510_final_project_Forum.Controllers
                 AuthorRating = post.User.Rating,
                 CreatedAt = post.Created,
                 PostContent = post.Content,
-                //Replies = post.replies
+                Replies = post.Replies,
 
             };
             return View();

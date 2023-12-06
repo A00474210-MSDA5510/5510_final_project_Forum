@@ -1,5 +1,6 @@
 ﻿using _5510_final_project_Forum.Data;
 using _5510_final_project_Forum.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace _5510_final_project_Forum.Services
@@ -33,7 +34,12 @@ namespace _5510_final_project_Forum.Services
 
         public Post GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Post.Where(post => post.Id == id)
+                .Include(post => post.User)
+                .Include(post => post.Replies)
+                    .ThenInclude(reply => reply.User)
+                .Include(post => post.Forum)
+                .First();
         }
 
         public IEnumerable<Post> GetFilteredPosts(string searchQuery)

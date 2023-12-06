@@ -1,0 +1,26 @@
+﻿@model _5510_final_project_Forum.Models.PostModels.PostIndexModel
+<h1>@Model.Title</h1>
+<div>
+    Author:@Model.AuthorName
+    Created:@Model.CreatedAt
+</div>
+
+<div>
+    Model.PostContent
+</div>
+
+@if (Model.Replies.Any())
+{
+    foreach(var reply in Model.Replies)
+    {
+        <div>
+            <div>
+                Reply Author: @reply.User.UserName
+                Reply Created: @reply.Created
+            </div>
+            <div>
+                Reply: @reply.Content
+            </div>
+        </div>
+    }
+}
