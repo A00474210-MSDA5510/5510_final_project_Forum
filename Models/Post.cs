@@ -8,6 +8,6 @@
         public DateTime Created {  get; set; }
         public required virtual ApplicationUser User { get; set; }
         public required virtual Forum Forum { get; set; }
-        public required virtual IEnumerable<Replies> Replies { get; set; }
+        public virtual IEnumerable<Replies> Replies { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using _5510_final_project_Forum.Data;
 using _5510_final_project_Forum.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,12 +14,13 @@ namespace _5510_final_project_Forum.Services
         {
             _context = context;
         }
-        public Task Add(Post post)
+        public async Task Add(Post post)
         {
-            throw new NotImplementedException();
+            _context.Add(post);
+            await _context.SaveChangesAsync();
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
             throw new NotImplementedException();
         }
