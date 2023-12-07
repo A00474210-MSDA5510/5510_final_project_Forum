@@ -57,10 +57,14 @@ namespace _5510_final_project_Forum.Areas.Identity.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
+            [StringLength(20)]
+            [RegularExpression(@"^[a-zA-Z]+(?:['-][a-zA-Z]+)?$", ErrorMessage = "Invalid name")]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [Required]
+            [StringLength(20)]
+            [RegularExpression(@"^[a-zA-Z]+(?:['-][a-zA-Z]+)?$", ErrorMessage = "Invalid name")]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
