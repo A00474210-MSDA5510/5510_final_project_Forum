@@ -1,9 +1,7 @@
 ﻿using _5510_final_project_Forum.Data;
 using _5510_final_project_Forum.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
-using Microsoft.IdentityModel.Tokens;
 
 namespace _5510_final_project_Forum.Services
 {
@@ -20,14 +18,26 @@ namespace _5510_final_project_Forum.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task AddReply(Replies reply)
         {
-            throw new NotImplementedException();
+            _context.Replies.Add(reply);
+            await _context.SaveChangesAsync();
         }
 
-        public Task EditPostContent(int id, string newContent)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var post = GetById(id);
+            _context.Remove(post);
+            await _context.SaveChangesAsync();
+        }
+
+
+        public async Task EditPostContent(int id, string content)
+        {
+            var post = GetById(id);
+            post.Content = content;
+            _context.Post.Update(post);
+            await _context.SaveChangesAsync();
         }
 
         public IEnumerable<Post> GetAll()

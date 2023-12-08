@@ -23,7 +23,6 @@ namespace _5510_final_project_Forum.Controllers
         public IActionResult Index(int id)
         {
             var post = _postService.GetById(id);
-            var replies = BuildPostReplies;
             var model = new PostIndexModel
             {
                 Id = post.Id,
@@ -34,7 +33,7 @@ namespace _5510_final_project_Forum.Controllers
                 AuthorRating = post.User.Rating,
                 CreatedAt = post.Created,
                 PostContent = post.Content,
-                Replies = post.Replies,
+                Replies = BuildPostReplies(post.Replies),
 
             };
             return View(model);
@@ -68,6 +67,28 @@ namespace _5510_final_project_Forum.Controllers
             return RedirectToAction("Index", "Post", new { id = post.Id });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddReply(PostIndexModel model)
+        {
+            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(userId);
+            var reply = BuildReply(model, user);
+            await _postService.AddReply(reply);
+            return RedirectToAction("Index", "Post", new { id = model.Id });
+        }
+
+
+        private Replies BuildReply (PostIndexModel model, ApplicationUser user)
+        {
+            var post = _postService.GetById(model.Id);
+            return new Replies
+            {
+                Content = model.newReplyContent,
+                Created = DateTime.Now,
+                User = user,
+                Post = post
+            };
+        }
         private Post BuildPost(NewPostModel model, ApplicationUser user)
         {
             var forum = _forumService.GetById(model.ForumId);
@@ -88,8 +109,8 @@ namespace _5510_final_project_Forum.Controllers
                 AuthorName = reply.User.UserName,
                 AuthorId = reply.User.Id,
                 AuthorImageUrl = reply.User.ProfileImageUrl,
-                AuthorRating = reply.User.Rating.ToString(),
-                Created = reply.Created,
+                AuthorRating = reply.User.Rating,
+                Date = reply.Created,
                 ReplyContent = reply.Content,
             });
               
