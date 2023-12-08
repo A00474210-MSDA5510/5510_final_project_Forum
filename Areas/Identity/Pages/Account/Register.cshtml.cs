@@ -88,7 +88,7 @@ namespace _5510_final_project_Forum.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
-            [EmailAddress]
+            [RegularExpression(@"^[a-zA-Z\d._-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,5}$", ErrorMessage = "Invalid Email Id")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
