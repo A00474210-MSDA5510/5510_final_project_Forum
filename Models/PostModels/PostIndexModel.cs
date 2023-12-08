@@ -1,4 +1,6 @@
-﻿namespace _5510_final_project_Forum.Models.PostModels
+﻿using _5510_final_project_Forum.Models.ReplyModels;
+
+namespace _5510_final_project_Forum.Models.PostModels
 {
     public class PostIndexModel
     {
@@ -10,7 +12,8 @@
         public int AuthorRating { get; set; }
         public DateTime CreatedAt { get; set; }
         public string PostContent { get; set; }
-        public IEnumerable<Replies> Replies { get; set; }
+        public string newReplyContent { get; set; }
+        public IEnumerable<PostReplyModel> Replies { get; set; }
 
     }
 }
