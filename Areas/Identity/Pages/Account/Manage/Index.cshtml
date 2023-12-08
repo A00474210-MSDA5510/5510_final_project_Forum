@@ -30,6 +30,29 @@
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.City" class="form-control" />
+                <label asp-for="Input.City" class="form-label"></label>
+                <span asp-validation-for="Input.City" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Province" class="form-control" />
+                <label asp-for="Input.Province" class="form-label"></label>
+                <span asp-validation-for="Input.Province" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <select asp-for="Input.Country" id="Country" class="form-control" onchange="updatePostalCodeValidation()">
+                    <option value="">Select a Country</option>
+                    <option value="Canada">Canada</option>
+                    <option value="USA">USA</option>
+                </select>
+                <label asp-for="Input.Country" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.PostalCode" class="form-control" id="PostalCode" disabled />
+                <label asp-for="Input.PostalCode" class="form-label"></label>
+                <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
+            </div>
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>
     </div>
@@ -37,4 +60,36 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function updatePostalCodeValidation() {
+            var selectedCountry = document.getElementById('Country').value;
+            var postalCodeInput = document.getElementById('PostalCode');
+
+            // Enable/disable the Postal Code input based on the selected country
+            postalCodeInput.disabled = (selectedCountry === '');
+
+            // Set the regex pattern based on the selected country
+            var regexPattern = getRegexPatternForCountry(selectedCountry);
+
+            postalCodeInput.setAttribute('data-val-regex-pattern', regexPattern);
+
+            // Revalidate the Postal Code input
+            var validator = $('#PostalCode').validate();
+            validator.settings.rules.PostalCode.regex = new RegExp(regexPattern);
+            $('#PostalCode').valid();
+            
+        }
+
+        function getRegexPatternForCountry(country) {
+            switch (country) {
+                case "USA":
+                    return "^\d{5}(?:-\d{4})?$";
+                case "Canada":
+                    return "^[A-Z]\d[A-Z]\s{0,1}\d[A-Z]\d$";
+                default:
+                    return "";
+            }
+
+        }
+    </script>
 }
