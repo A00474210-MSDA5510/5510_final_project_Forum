@@ -15,5 +15,7 @@ namespace _5510_final_project_Forum.Data
         public DbSet<Forum> Forums { get; set; }
         public DbSet<Post> Post { get; set; }
         public DbSet<Replies> Replies { get; set; }
+        public DbSet<Subscription> Subscription { get; set; } = default!;
+        public DbSet<_5510_final_project_Forum.Models.Payment> Payment { get; set; } = default!;
     }
 }

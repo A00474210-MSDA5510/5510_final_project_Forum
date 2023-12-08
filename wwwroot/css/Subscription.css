@@ -1,0 +1,38 @@
+﻿body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#subscription_container {
+    display: none;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #DDE5EE;
+}
+
+.card-body {
+    font-family: 'Trebuchet MS', serif;
+    padding: 30px;
+}
+
+.card-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.list-group-item {
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    background-color: #DDE5EE;
+}
