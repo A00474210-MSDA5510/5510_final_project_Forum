@@ -1,5 +1,21 @@
 ﻿@model _5510_final_project_Forum.Models.PostModels.PostIndexModel
+
+@{
+    var isHidden = true; // Initial state is hidden
+}
 <h1>@Model.Title</h1>
+<style>
+    .hidden {
+        display: none; /* Initially hide the element */
+    }
+
+    .your-css-class {
+        /* Add your CSS styles for the class here */
+        border: 1px solid #000;
+        padding: 10px;
+        /* Add more styles as needed */
+    }
+</style>
 <div>
     Author:@Model.AuthorName
     Created:@Model.CreatedAt
@@ -9,18 +25,77 @@
     @Model.PostContent
 </div>
 
-@if (Model.Replies.Any())
+@if (Context.User.Identity.IsAuthenticated)
 {
-    foreach(var reply in Model.Replies)
+    <div class="row" id="replyRow">
+        <span><a asp-controller="Reply" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-newReply">Post Reply</a></span>
+    </div>
+}
+
+ @if (Model.Replies.Any())
     {
-        <div>
-            <div>
-                Reply Author: @reply.User.UserName
-                Reply Created: @reply.Created
+        foreach (var reply in Model.Replies)
+                {
+            <div class="row replyContent">
+                <div class="col-md-3 replyAuthorContainer">
+                    <div class="postAuthorImage" style="background-image: url(@reply.AuthorImageUrl); background-size: 100%;"></div>
+                    <a asp-controller="Profile" asp-action="Detail" asp-route-id="@reply.AuthorId">
+                        <strong>@reply.AuthorName</strong>
+                    </a> (<span class="postAuthorRating">@reply.AuthorRating</span>) <br />
+                    @if (@reply.IsAuthorAdmin)
+                    {
+                        <div class="isAdmin profileLabel smaller">Admin</div>
+                        <br />
+                    }
+                    <span class="postDate">@reply.Date</span>
+                </div>
+                <div class="col-md-9 replyContentContainer">
+                    <div class="postContent">
+                        @Html.Raw(@reply.ReplyContent)
+                    </div>
+                </div>
             </div>
-            <div>
-                Reply: @reply.Content
-            </div>
+        }
+    }
+    else
+    {
+        <div class="noPosts">
+            <h3>
+                There are no replies to this post.<br />
+            </h3>
         </div>
     }
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <button id ="toggleButton" onclick="toggleVisibility()">Add Replies</button>
+    <div id="myDiv" class="@(isHidden ? "hidden" : "your-css-class")">
+        <form asp-action="AddReply" method="post" id="addRepliesForm">
+            <div class="form-group">
+                <label asp-for="newReplyContent">Add your reply</label>
+                <textarea asp-for="newReplyContent" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" id="submitPostBtn" class="btn btn-submitPost">
+                Submit Reply
+            </button>
+            <input asp-for="Id" type="hidden" />
+        </form>
+
+    </div>
+    <script>
+        function toggleVisibility() {
+        var myDiv = document.getElementById("myDiv");
+        var toggleButton = document.getElementById("toggleButton");
+        myDiv.classList.toggle("hidden");
+        toggleButton.parentNode.removeChild(toggleButton)
+        }
+    </script>
+}
+@if (!Context.User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <div id="forumIndexContent">
+            <div class="register">You must be a <a asp-controller="Identity" asp-action="Account" asp-route-id="Register">registered member</a> to reply.</div>
+        </div>
+    </div>
 }
