@@ -7,6 +7,10 @@
     margin-bottom: 50px;
 }
 
+#subscription_container {
+    display: none;
+}
+
 .card {
     border: none;
     border-radius: 15px;

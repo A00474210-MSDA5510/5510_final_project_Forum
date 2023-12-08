@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _5510_final_project_Forum.Data;
 using _5510_final_project_Forum.Models;
+using Newtonsoft.Json;
 
 namespace _5510_final_project_Forum.Controllers
 {
@@ -25,6 +26,14 @@ namespace _5510_final_project_Forum.Controllers
               return _context.Subscription != null ? 
                           View(await _context.Subscription.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Subscription'  is null.");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(string selectedPlan)
+        {
+            Subscription subscription = JsonConvert.DeserializeObject<Subscription>(selectedPlan);
+            //ViewData["Subscription"]= subscription;
+            return View("Payment",subscription);
         }
 
         // GET: Subscriptions/Details/5

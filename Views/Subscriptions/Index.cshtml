@@ -16,31 +16,25 @@
                     <div class="btn-group" role="group" aria-label="Subscription Plans">
                     @foreach (var plan in Model)
                     {
-                        <button type="button" class="@(plan.Plan.Equals("Monthly") ? "btn btn-primary active" : "btn btn-primary")" aria-current="true" onclick='showPlanDetails(@Json.Serialize(plan))'>@plan.Plan</button>
+                        <button type="button" class="btn btn-primary" aria-current="true" onclick='showPlanDetails(@Json.Serialize(plan))'>@plan.Plan</button>
                     }
                     </div>
             </div>
 
-            <div class="container">
+            <div class="container" id="subscription_container">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title" id="plan">@Model.First().Plan Subscription Plan</h5>
+                        <h5 class="card-title" id="plan"></h5>
                         <ul class="list-group">
-                            <li class="list-group-item" id="duration">@Model.First().Duration Months</li>
-                            <li class="list-group-item" id="price">@Model.First().Cost CAD</li>
-                            <li class="list-group-item" id="expiryDate">
-                                @{
-                                    DateTime date=DateTime.Now.AddMonths(1);
-                                    string result = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59).ToString("dd MMM yyyy HH:mm");
-                                }
-                                Expires on: @result
-                            </li>
+                            <li class="list-group-item" id="duration"></li>
+                            <li class="list-group-item" id="price"></li>
+                            <li class="list-group-item" id="expiryDate"></li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Subscribe</button>
+            <button id="subscribeBtn" type="submit" class="w-100 btn btn-lg btn-primary" disabled>Subscribe</button>
         </form>
     </div>
 </div>
@@ -69,6 +63,11 @@
                 minute: '2-digit'
             });
             expiryDate.innerText = 'Expires on: ' + expirationDate;
+            document.getElementById("subscription_container").style.display = 'block';
+            var submitBtn = document.getElementById("subscribeBtn");
+            submitBtn.disabled = false;
+            submitBtn.name = "selectedPlan";
+            submitBtn.value = JSON.stringify(plan);
         }
     </script>
 }
