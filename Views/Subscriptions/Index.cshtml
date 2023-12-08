@@ -4,76 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
-<style>
-    body {
-        background-color: #f8f9fa;
-    }
-
-    .container {
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
-
-    /* #subscription_container {
-        display: none;
-    } */
-
-    .card {
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: #DDE5EE;
-    }
-
-    .card-body {
-        font-family: 'Trebuchet MS', serif;
-        padding: 30px;
-    }
-
-    .card-title {
-        font-size: 30px;
-        font-weight: bold;
-        color: #007bff;
-        margin-bottom: 20px;
-    }
-
-    .list-group-item {
-        border: none;
-        padding: 10px;
-        font-size: 20px;
-        background-color: #DDE5EE;
-    }
-
-</style>
+<link rel="stylesheet" href="~/css/Subscription.css">
 
 <h1>Select a Subscription Plan</h1>
 
-@* @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Plan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SubscriptionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SubscriptionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SubscriptionId">Delete</a>
-            </td>
-        </tr>
-}
- *@
 <div class="row">
     <div class="col-md-6">
         <form id="subscription-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                    @* <input type="radio" class="form-control" name="subscriptionPlan" value=@plan.Plan id=@plan.Plan>
-                    <label for=@plan.Plan class="form-label">@plan.Plan</label> *@
                     <div class="btn-group" role="group" aria-label="Subscription Plans">
                     @foreach (var plan in Model)
                     {
@@ -82,7 +21,7 @@
                     </div>
             </div>
 
-            <div class="container" id="subscription_container">
+            <div class="container">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title" id="plan">@Model.First().Plan Subscription Plan</h5>
@@ -101,7 +40,7 @@
                 </div>
             </div>
 
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Subscribe</button>
         </form>
     </div>
 </div>
@@ -130,9 +69,6 @@
                 minute: '2-digit'
             });
             expiryDate.innerText = 'Expires on: ' + expirationDate;
-
-            // Show the details card
-            // document.getElementById("subscription_container").style.display = 'block';
         }
     </script>
 }
