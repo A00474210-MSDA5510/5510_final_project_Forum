@@ -10,6 +10,7 @@ namespace _5510_final_project_Forum.Data
         IEnumerable<Post> GetPostsByForum(int id);
         Task Add(Post post);
         Task Delete(int id);
+        Task AddReply(Replies reply);
         Task EditPostContent(int id, string newContent);
     }
 }

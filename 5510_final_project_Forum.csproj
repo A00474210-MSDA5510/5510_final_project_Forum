@@ -29,6 +29,7 @@
     <Folder Include="Areas\test\Data\" />
     <Folder Include="Areas\test\Models\" />
     <Folder Include="Areas\test\Views\" />
+    <Folder Include="Views\Reply\" />
   </ItemGroup>
 
 </Project>
