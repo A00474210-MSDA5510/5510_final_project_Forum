@@ -4,28 +4,51 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Plan)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cost)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
+    .container {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    /* #subscription_container {
+        display: none;
+    } */
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #DDE5EE;
+    }
+
+    .card-body {
+        font-family: 'Trebuchet MS', serif;
+        padding: 30px;
+    }
+
+    .card-title {
+        font-size: 30px;
+        font-weight: bold;
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+
+    .list-group-item {
+        border: none;
+        padding: 10px;
+        font-size: 20px;
+        background-color: #DDE5EE;
+    }
+
+</style>
+
+<h1>Select a Subscription Plan</h1>
+
+@* @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Plan)
@@ -43,5 +66,73 @@
             </td>
         </tr>
 }
-    </tbody>
-</table>
+ *@
+<div class="row">
+    <div class="col-md-6">
+        <form id="subscription-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                    @* <input type="radio" class="form-control" name="subscriptionPlan" value=@plan.Plan id=@plan.Plan>
+                    <label for=@plan.Plan class="form-label">@plan.Plan</label> *@
+                    <div class="btn-group" role="group" aria-label="Subscription Plans">
+                    @foreach (var plan in Model)
+                    {
+                        <button type="button" class="@(plan.Plan.Equals("Monthly") ? "btn btn-primary active" : "btn btn-primary")" aria-current="true" onclick='showPlanDetails(@Json.Serialize(plan))'>@plan.Plan</button>
+                    }
+                    </div>
+            </div>
+
+            <div class="container" id="subscription_container">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" id="plan">@Model.First().Plan Subscription Plan</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item" id="duration">@Model.First().Duration Months</li>
+                            <li class="list-group-item" id="price">@Model.First().Cost CAD</li>
+                            <li class="list-group-item" id="expiryDate">
+                                @{
+                                    DateTime date=DateTime.Now.AddMonths(1);
+                                    string result = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59).ToString("dd MMM yyyy HH:mm");
+                                }
+                                Expires on: @result
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showPlanDetails(plan) {
+            var planName = document.getElementById("plan");
+            var duration = document.getElementById("duration");
+            var price = document.getElementById("price");
+            var expiryDate = document.getElementById("expiryDate");
+
+            // Update the content based on the clicked plan
+            planName.innerText = plan.plan+" Subscription Plan";
+            duration.innerText = plan.duration+" Months";
+            price.innerText = plan.cost+" CAD";
+            var expirationDate = new Date();
+            expirationDate.setMonth(expirationDate.getMonth() + plan.duration);
+            expirationDate.setHours(23);
+            expirationDate.setMinutes(59);
+            expirationDate = expirationDate.toLocaleString('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            expiryDate.innerText = 'Expires on: ' + expirationDate;
+
+            // Show the details card
+            // document.getElementById("subscription_container").style.display = 'block';
+        }
+    </script>
+}
