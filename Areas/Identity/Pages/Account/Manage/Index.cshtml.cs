@@ -56,9 +56,35 @@ namespace _5510_final_project_Forum.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Phone]
+            [Required]
+            [StringLength(20)]
+            [RegularExpression(@"^[a-zA-Z]+(?:['-][a-zA-Z]+)?$", ErrorMessage = "Invalid name")] //Only alphabets and may contain atmost 1 apostrophe or hyphen in-between
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(20)]
+            [RegularExpression(@"^[a-zA-Z]+(?:['-][a-zA-Z]+)?$", ErrorMessage = "Invalid name")] //Only alphabets and may contain atmost 1 apostrophe or hyphen in-between
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [RegularExpression(@"^(?:\+?1[-\s]?)?\(?[2-9]\d{2}\)?[-\s]?[2-9]\d{2}[-\s]?\d{4}$", ErrorMessage = "Invalid US/Canada Phone No")]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [RegularExpression(@"^[a-zA-Z][a-zA-Z\s\-.\']*[a-zA-Z]$", ErrorMessage = "Invalid city name")] //Only alphabets, can contain spaces,dot,hyphen and apostrophe but they cannot be leading or trailing.
+            public string City {  get; set; }
+
+            [RegularExpression(@"^[a-zA-Z][a-zA-Z\s\-.\']*[a-zA-Z]$", ErrorMessage = "Invalid city name")] //Only alphabets, can contain spaces,dot,hyphen and apostrophe but they cannot be leading or trailing.
+            public string Province { get; set; }
+
+            public string Country { get; set; }
+
+            [Display(Name = "Postal code")]
+
+            //[RegularExpression(@"^[A-Z]\d[A-Z]\s{0,1}\d[A-Z]\d$")]
+            public string PostalCode { get; set; }
+
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -70,7 +96,13 @@ namespace _5510_final_project_Forum.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = phoneNumber,
+                City = user.City,
+                Province = user.Province,
+                Country = user.Country,
+                PostalCode = user.PostalCode
             };
         }
 
@@ -111,6 +143,33 @@ namespace _5510_final_project_Forum.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            if (Input.FirstName != user.FirstName)
+            {
+                user.FirstName = Input.FirstName;
+            }
+
+            if (Input.LastName != user.LastName)
+            {
+                user.LastName = Input.LastName;
+            }
+            if (Input.City != user.City)
+            {
+                user.City = Input.City;
+            }
+            if (Input.Province != user.Province)
+            {
+                user.Province = Input.Province;
+            }
+            if (Input.Country != user.Country)
+            {
+                user.Country = Input.Country;
+            }
+            if (Input.PostalCode != user.PostalCode)
+            {
+                user.PostalCode = Input.PostalCode;
+            }
+
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
