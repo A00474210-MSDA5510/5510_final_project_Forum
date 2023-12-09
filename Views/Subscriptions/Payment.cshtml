@@ -27,6 +27,10 @@
         transition: background-color 0.3s ease;
     }
 
+    .form-group {
+        margin-top:20px;
+    }
+
         button:hover {
             background-color: #3367d6;
         }
@@ -40,20 +44,20 @@
 <h2>Total Cost: @Model.Subscription.Cost CAD</h2>
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Payment">
+        <form asp-action="PaymentResult">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="radio-btn-grp">
                 <label asp-for="CreditCard.Type" ></label>
                 <div class="form-check">
-                    <input asp-for="CreditCard.Type" class="form-check-input" type="radio" name="cardType" value="MasterCard" id="flexRadioDefault2">
+                    <input asp-for="CreditCard.Type" class="form-check-input" type="radio" value="MasterCard" id="flexRadioDefault2">
                     <label class="form-check-label" for="flexRadioDefault2">MasterCard</label>
                 </div>
                 <div class="form-check">
-                    <input asp-for="CreditCard.Type" class="form-check-input" type="radio" name="cardType" value="VISA" id="flexRadioDefault1">
+                    <input asp-for="CreditCard.Type" class="form-check-input" type="radio" value="VISA" id="flexRadioDefault1">
                     <label class="form-check-label" for="flexRadioDefault1">VISA</label>
                 </div>
                 <div class="form-check">
-                    <input asp-for="CreditCard.Type" class="form-check-input" type="radio" name="cardType" value="American Express" id="flexRadioDefault2">
+                    <input asp-for="CreditCard.Type" class="form-check-input" type="radio" value="American Express" id="flexRadioDefault2">
                     <label class="form-check-label" for="flexRadioDefault2">American Express</label>
                 </div>
                 <span asp-validation-for="CreditCard.Type" class="text-danger"></span>
@@ -79,14 +83,15 @@
                 <span asp-validation-for="CreditCard.Cvv" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Pay" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <br/>
+    <a asp-action="Index">Back to Subscription Plans</a>
 </div>
 
 @section Scripts {
