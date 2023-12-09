@@ -1,4 +1,4 @@
-﻿@model _5510_final_project_Forum.Models.Subscription
+﻿@model _5510_final_project_Forum.Models.ViewModels.PaymentViewModel
 <style>
     body {
         
@@ -36,31 +36,54 @@
 }
 
 <h1>Payment</h1>
-
-<h4>Payment</h4>
-<h3>@Model.Plan</h3>
-<h3>@Model.Duration</h3>
 <hr />
-@* <div class="row">
+<h2>Total Cost: @Model.Subscription.Cost CAD</h2>
+<div class="row">
     <div class="col-md-4">
         <form asp-action="Payment">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="PaymentId" class="control-label"></label>
-                <input asp-for="PaymentId" class="form-control" />
-                <span asp-validation-for="PaymentId" class="text-danger"></span>
+            <div class="radio-btn-grp">
+                <label asp-for="CreditCard.Type" ></label>
+                <div class="form-check">
+                    <input asp-for="CreditCard.Type" class="form-check-input" type="radio" name="cardType" value="MasterCard" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">MasterCard</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="CreditCard.Type" class="form-check-input" type="radio" name="cardType" value="VISA" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">VISA</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="CreditCard.Type" class="form-check-input" type="radio" name="cardType" value="American Express" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">American Express</label>
+                </div>
+                <span asp-validation-for="CreditCard.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
+                <label asp-for="CreditCard.CreditCardId" class="control-label"></label>
+                <input asp-for="CreditCard.CreditCardId" class="form-control" />
+                <span asp-validation-for="CreditCard.CreditCardId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreditCard.CardholderName" class="control-label"></label>
+                <input asp-for="CreditCard.CardholderName" class="form-control" />
+                <span asp-validation-for="CreditCard.CardholderName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreditCard.ExpiryDate" class="control-label"></label>
+                <input asp-for="CreditCard.ExpiryDate" class="form-control" id="ExpiryDate" oninput="formatExpiryDate()"/>
+                <span asp-validation-for="CreditCard.ExpiryDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreditCard.Cvv" class="control-label"></label>
+                <input asp-for="CreditCard.Cvv" class="form-control" />
+                <span asp-validation-for="CreditCard.Cvv" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div> *@
+</div>
 
 <div>
     <a asp-action="Index">Back to List</a>
@@ -68,4 +91,12 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function formatExpiryDate() {
+            var expiryDate=document.getElementById("ExpiryDate");
+            if (expiryDate.value.length==2) {
+                expiryDate.value = expiryDate.value + "/";
+            }
+        }
+    </script>
 }

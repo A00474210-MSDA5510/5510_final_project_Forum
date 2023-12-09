@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using _5510_final_project_Forum.Data;
 using _5510_final_project_Forum.Models;
 using Newtonsoft.Json;
+using _5510_final_project_Forum.Models.ViewModels;
+using System.Text.RegularExpressions;
 
 namespace _5510_final_project_Forum.Controllers
 {
@@ -33,7 +35,9 @@ namespace _5510_final_project_Forum.Controllers
         {
             Subscription subscription = JsonConvert.DeserializeObject<Subscription>(selectedPlan);
             //ViewData["Subscription"]= subscription;
-            return View("Payment",subscription);
+            PaymentViewModel paymentViewModel = new PaymentViewModel();
+            paymentViewModel.Subscription = subscription;
+            return View("Payment",paymentViewModel);
         }
 
         // GET: Subscriptions/Details/5

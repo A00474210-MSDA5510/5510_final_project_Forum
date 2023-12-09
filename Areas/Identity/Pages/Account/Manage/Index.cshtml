@@ -61,34 +61,51 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
+        $(document).ready(function () {
+            // Enable/disable the Postal Code input and bind input event
+            $('#Country').on('change', function () {
+                updatePostalCodeValidation();
+            });
+
+            $('#PostalCode').on('input', function () {
+                validatePostalCode();
+            });
+        });
+
         function updatePostalCodeValidation() {
-            var selectedCountry = document.getElementById('Country').value;
-            var postalCodeInput = document.getElementById('PostalCode');
+            var selectedCountry = $('#Country').val();
+            var postalCodeInput = $('#PostalCode');
 
             // Enable/disable the Postal Code input based on the selected country
-            postalCodeInput.disabled = (selectedCountry === '');
+            postalCodeInput.prop('disabled', (selectedCountry === ''));
 
             // Set the regex pattern based on the selected country
             var regexPattern = getRegexPatternForCountry(selectedCountry);
 
-            postalCodeInput.setAttribute('data-val-regex-pattern', regexPattern);
+            postalCodeInput.data('val-regex-pattern', regexPattern);
 
-            // Revalidate the Postal Code input
-            var validator = $('#PostalCode').validate();
-            validator.settings.rules.PostalCode.regex = new RegExp(regexPattern);
-            $('#PostalCode').valid();
+            console.log("postalcode", postalCodeInput)
+
+
+            var validator = $('#PostalCode').validate({ rules: { PostalCode: { regex: regexPattern } } });
+
+        }
+
+        function validatePostalCode() {
+            // Validate the Postal Code input
+            $('#PostalCode').validate();
+            console.log($('#PostalCode').valid())
         }
 
         function getRegexPatternForCountry(country) {
             switch (country) {
                 case "USA":
-                    return "^\d{5}(?:-\d{4})?$";
+                    return "\d{5}(?:-\d{4})";
                 case "Canada":
-                    return "^[A-Z]\d[A-Z]\s{0,1}\d[A-Z]\d$";
+                    return "[A-Z]\d[A-Z]\s{0,1}\d[A-Z]\d";
                 default:
                     return "";
             }
-
         }
     </script>
 }
