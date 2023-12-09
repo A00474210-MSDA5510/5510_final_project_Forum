@@ -38,6 +38,7 @@ namespace _5510_final_project_Forum.Controllers
 
         public IActionResult Topic(int id) 
         {
+            //TEST
             var forum = _forumService.GetById(id);
             var posts = forum.Posts;
             var postListings = posts.Select(post => new PostListingModel
