@@ -10,16 +10,21 @@ using _5510_final_project_Forum.Models;
 using Newtonsoft.Json;
 using _5510_final_project_Forum.Models.ViewModels;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Identity;
 
 namespace _5510_final_project_Forum.Controllers
 {
     public class SubscriptionsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        //private readonly ISubscriptions _subscriptionServices;
+        private static UserManager<ApplicationUser> _userManager;
 
-        public SubscriptionsController(ApplicationDbContext context)
+        public SubscriptionsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            //_subscriptionServices = subscriptionServices;
+            _userManager = userManager;
         }
 
         // GET: Subscriptions
@@ -43,6 +48,10 @@ namespace _5510_final_project_Forum.Controllers
         [HttpPost]
         public async Task<IActionResult> PaymentResult(PaymentViewModel paymentViewModel)
         {
+            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(userId);
+            user.isSubbed = 1;
+            IdentityResult result = await _userManager.UpdateAsync(user);
             return Content("Payment Done!"+paymentViewModel.Payment);
         }
 
