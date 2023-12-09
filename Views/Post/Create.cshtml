@@ -1,5 +1,35 @@
 ﻿@model _5510_final_project_Forum.Models.PostModels.NewPostModel
+<style>
+    body {
+        background: linear-gradient(to right, white, #2E81DA); /* Adjust colors as needed */
+        font-family: 'Arial', sans-serif;
+    }
 
+    .text-center {
+        text-align: center;
+        color: #4285f4; /* Set text color to white for better visibility on the gradient background */
+    }
+
+    .display-4 {
+        color: #4285f4; /* Set text color to white for better visibility on the gradient background */
+    }
+
+    button {
+        background-color: #4285f4;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        button:hover {
+            background-color: #3367d6;
+        }
+</style>
 <h1>New Post | @Model.ForumName</h1>
 @if (!Context.User.Identity.IsAuthenticated)
 {

@@ -1,6 +1,57 @@
 ﻿@model _5510_final_project_Forum.Models.ForumView.ForumIndexModel
+<style>
+    body {
+        background: linear-gradient(to right, white, #2E81DA); /* Adjust colors as needed */
+        font-family: 'Arial', sans-serif;
+    }
 
+    .text-center {
+        text-align: center;
+        color: #4285f4; /* Set text color to white for better visibility on the gradient background */
+    }
+
+    .display-4 {
+        color: #4285f4; /* Set text color to white for better visibility on the gradient background */
+    }
+
+    button {
+        background-color: #4285f4;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        button:hover {
+            background-color: #3367d6;
+        }
+</style>
 <h1>Forums</h1>
+<div class="card" id="forumIndexTable">
+    @foreach (var forum in Model.ForumList)
+    {
+        <div class="card-body">
+            <div class="card-title">
+                <a asp-controller="Forum" asp-action="Topic" asp-route-id="@forum.Id">
+                    @forum.Name
+                </a>
+            </div>
+            <div class="card-title">
+                @forum.Description
+            </div>
+            <div class="card-title">
+                @forum.ImageUrl
+            </div>
+        </div>
+    }
+</div>
+
+
+@*
 <table class="table table-hover" id=" = "forumIndexTable>
     <tboy>
         @foreach (var forum in Model.ForumList)
@@ -21,3 +72,4 @@
         }
     </tboy>
 </table>
+*@
