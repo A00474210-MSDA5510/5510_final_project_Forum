@@ -45,6 +45,7 @@ namespace _5510_final_project_Forum.Controllers
                 Id = post.Id,
                 AuthorId = post.User.Id,
                 AuthorRating = post.User.Rating.ToString(),
+                Author = post.User.UserName,
                 Title = post.Title,
                 DatePosted = post.Created,
                 RepliesCount = post.Replies.Count(),

@@ -1,10 +1,40 @@
 ﻿@model _5510_final_project_Forum.Models.ForumView.ForumTopicModel
+<style>
+    body {
+        background: linear-gradient(to right, white, #2E81DA); /* Adjust colors as needed */
+        font-family: 'Arial', sans-serif;
+    }
 
+    .text-center {
+        text-align: center;
+        color: #4285f4; /* Set text color to white for better visibility on the gradient background */
+    }
+
+    .display-4 {
+        color: #4285f4; /* Set text color to white for better visibility on the gradient background */
+    }
+
+    button {
+        background-color: #4285f4;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        button:hover {
+            background-color: #3367d6;
+        }
+</style>
 <h1>Welcome to the @Model.Forum.Name Forum!</h1>
-<span id="headingBtn"><a asp-controller="Post" asp-action="Create" asp-route-id="@Model.Forum.Id" class="btn btn-newPost">Create Post</a></span>
+<span id="headingBtn"><a asp-controller="Post" asp-action="Create" asp-route-id="@Model.Forum.Id" class="btn btn-info">Create Post</a></span>
 @if (Model.Posts.Any())
 {
-    <table class="table table-bordered table-hover">
+ /*   <table class="table table-bordered table-hover">
         <tbody>
             @foreach(var post in Model.Posts)
             {
@@ -15,7 +45,7 @@
                         </a>
                     </td>
                     <td>
-                        @post.AuthorId
+                        @post.Author
                     </td>
                     <td>
                         @post.DatePosted
@@ -26,7 +56,30 @@
                 </tr>
             }
         </tbody>
-    </table>
+    </table>   */
+    <div class="card">
+        @foreach (var post in Model.Posts)
+        {
+            <div class="card-body">
+                <div class="card-title">
+                    <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">
+                        @post.Title
+                    </a>
+                </div>
+                <div class="card-text">
+                    <div class="author">
+                        Author: @post.Author
+                    </div>
+                    <div class="card-text">
+                        Date Posted: @post.DatePosted
+                    </div>
+                    <div class="card-text">
+                        Replies Count: @post.RepliesCount
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
 else
 {
