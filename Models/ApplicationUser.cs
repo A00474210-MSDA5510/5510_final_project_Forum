@@ -22,6 +22,8 @@ namespace _5510_final_project_Forum.Models
         [PersonalData]
         public Subscription? Subscription { get; set; }
 
+        public int? isSubbed { get; set; }
+
 
     }
 }

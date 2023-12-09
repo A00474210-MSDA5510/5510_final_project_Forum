@@ -31,11 +31,10 @@ namespace _5510_final_project_Forum.Controllers
                 AuthorName = post.User.UserName,
                 AuthorImageUrl = post.User.ProfileImageUrl,
                 AuthorRating = post.User.Rating,
-                AuthorSubType = post.User.Subscription,
+                AuthorSubType = post.User.isSubbed,
                 CreatedAt = post.Created,
                 PostContent = post.Content,
                 Replies = BuildPostReplies(post.Replies),
-
             };
             return View(model);
         }
@@ -63,7 +62,7 @@ namespace _5510_final_project_Forum.Controllers
             var post = BuildPost(model, user);
 
             await _postService.Add(post);
-
+            
       
             return RedirectToAction("Index", "Post", new { id = post.Id });
         }
@@ -113,7 +112,7 @@ namespace _5510_final_project_Forum.Controllers
                 AuthorRating = reply.User.Rating,
                 Date = reply.Created,
                 ReplyContent = reply.Content,
-                AuthorSubType = reply.User.Subscription
+                AuthorSubType = reply.User.isSubbed
             });
               
         }

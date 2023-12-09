@@ -11,7 +11,7 @@ namespace _5510_final_project_Forum.Models.ReplyModels
         public int AuthorRating { get; set; }
         public string AuthorImageUrl { get; set; }
         public bool IsAuthorAdmin { get; set; }
-        public Subscription? AuthorSubType {  get; set; }
+        public int? AuthorSubType {  get; set; }
         public DateTime Date { get; set; }
         public string ReplyContent { get; set; }
 

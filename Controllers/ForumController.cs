@@ -47,7 +47,7 @@ namespace _5510_final_project_Forum.Controllers
                 AuthorId = post.User.Id,
                 AuthorRating = post.User.Rating.ToString(),
                 Author = post.User.UserName,
-                AuthorSubType = post.User.Subscription,
+                AuthorSubType = post.User.isSubbed,
                 Title = post.Title,
                 DatePosted = post.Created,
                 RepliesCount = post.Replies.Count(),
