@@ -37,13 +37,17 @@ namespace _5510_final_project_Forum.Controllers
             //ViewData["Subscription"]= subscription;
             PaymentViewModel paymentViewModel = new PaymentViewModel();
             paymentViewModel.Subscription = subscription;
-            Console.WriteLine("-------->Test A");
             return View("Payment",paymentViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PaymentResult(PaymentViewModel paymentViewModel)
+        {
+            return Content("Payment Done!"+paymentViewModel.Payment);
         }
 
         public IActionResult ValidateCreditCardNo([Bind(Prefix = "CreditCard.CreditCardId")] String CreditCardId, [Bind(Prefix = "CreditCard.Type")] String CreditCardType)
         {
-            Console.WriteLine("-------->Test B"+CreditCardType);
             if (CreditCardType.Equals("MasterCard"))
             {
                 if (!Regex.Match(CreditCardId, "^5[1-5]([0-9]{14})$").Success)
@@ -52,14 +56,14 @@ namespace _5510_final_project_Forum.Controllers
             else if (CreditCardType.Equals("VISA"))
             {
                 if (!Regex.Match(CreditCardId, "^4([0-9]{15})$").Success)
-                    return Content($"Invalid VISA Card No");
+                    return Json("Invalid VISA Card No");
             }
             else if (CreditCardType.Equals("American Express"))
             {
                 if (!Regex.Match(CreditCardId, "^3(4|7)([0-9]{13})$").Success)
-                    return Content($"Invalid American Express Card No");
+                    return Json("Invalid American Express Card No");
             }
-            return Content("Validation Passed");
+            return Json(true);
         }
 
         // GET: Subscriptions/Details/5

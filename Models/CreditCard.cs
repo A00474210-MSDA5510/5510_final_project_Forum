@@ -23,7 +23,7 @@ namespace _5510_final_project_Forum.Models
         [RegularExpression(@"^[a-zA-Z]+(?:['-][a-zA-Z]+)?$", ErrorMessage = "Invalid name")] //Only alphabets and may contain atmost 1 apostrophe or hyphen in-between
         public string CardholderName { get; set; }
         [Required]
-        [StringLength(3,MinimumLength = 3,ErrorMessage = "CVV should be 3 digits only")]
+        [Range(100,999,ErrorMessage = "CVV should be 3 digits only")]
         public int Cvv { get; set; }
         public ApplicationUser User { get; set; }
         public ICollection<Payment> Payments { get; set; }
