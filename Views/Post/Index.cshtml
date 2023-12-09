@@ -1,18 +1,76 @@
 ﻿@model _5510_final_project_Forum.Models.PostModels.PostIndexModel
 <style>
     body {
-       
-        font-family: 'Arial', sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .text-center {
+    /* Navbar styling (if applicable) */
+    .navbar {
+        background-color: #0078d4; /* Microsoft blue */
+        color: #fff; /* White text */
+    }
+
+    /* Button styling */
+    .btn {
+        background-color: #0078d4; /* Microsoft blue */
+        color: #fff; /* White text */
+    }
+
+    .btn-secondary {
+        background-color: #f3f2f1; /* Light gray for secondary button */
+        color: #000; /* Black text */
+    }
+
+    /* Form and input styling */
+    .form-control {
+        border: 1px solid #ced4da; /* Light gray border */
+    }
+
+    /* Author container styling */
+    .replyAuthorContainer {
+        background-color: #f3f2f1; /* Light gray background */
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .postAuthorImage {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    /* Post content styling */
+    .postContent {
+        margin-top: 10px;
+    }
+
+    /* No posts message styling */
+    .noPosts {
+        margin-top: 20px;
         text-align: center;
-        color: #4285f4; /* Set text color to white for better visibility on the gradient background */
+        color: #0078d4; /* Microsoft blue */
     }
 
-    .display-4 {
-        color: #4285f4; /* Set text color to white for better visibility on the gradient background */
+    /* Add Replies form styling */
+    #myDiv {
+        margin-top: 20px;
     }
+
+    #addRepliesForm {
+        background-color: #f3f2f1; /* Light gray background */
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    /* Footer styling (if applicable) */
+    .footer {
+        background-color: #f3f2f1; /* Light gray background */
+        padding: 10px;
+        text-align: center;
+    }
+
 
     button {
         background-color: #4285f4;
@@ -55,12 +113,6 @@
     @Model.PostContent
 </div>
 
-@if (Context.User.Identity.IsAuthenticated)
-{
-    <div class="row" id="replyRow">
-        <span><a asp-controller="Reply" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-newReply">Post Reply</a></span>
-    </div>
-}
 
  @if (Model.Replies.Any())
     {
@@ -70,8 +122,15 @@
                 <div class="col-md-3 replyAuthorContainer">
                     <div class="postAuthorImage" style="background-image: url(@reply.AuthorImageUrl); background-size: 100%;"></div>
                     <a asp-controller="Profile" asp-action="Detail" asp-route-id="@reply.AuthorId">
-                        <strong>@reply.AuthorName</strong>
-                    </a> (<span class="postAuthorRating">@reply.AuthorRating</span>) <br />
+                    @if(reply.AuthorSubType != null)
+                    {
+                        <strong>@reply.AuthorName☑️</strong>
+                    }
+                    @if(reply.AuthorSubType ==null)
+                    {
+                        <strong>@reply.AuthorName🥛</strong>
+                    }
+                </a> (<span class="postAuthorRating">@reply.AuthorRating</span>) <br />
                     @if (@reply.IsAuthorAdmin)
                     {
                         <div class="isAdmin profileLabel smaller">Admin</div>

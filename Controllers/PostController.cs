@@ -31,6 +31,7 @@ namespace _5510_final_project_Forum.Controllers
                 AuthorName = post.User.UserName,
                 AuthorImageUrl = post.User.ProfileImageUrl,
                 AuthorRating = post.User.Rating,
+                AuthorSubType = post.User.Subscription,
                 CreatedAt = post.Created,
                 PostContent = post.Content,
                 Replies = BuildPostReplies(post.Replies),
@@ -112,6 +113,7 @@ namespace _5510_final_project_Forum.Controllers
                 AuthorRating = reply.User.Rating,
                 Date = reply.Created,
                 ReplyContent = reply.Content,
+                AuthorSubType = reply.User.Subscription
             });
               
         }

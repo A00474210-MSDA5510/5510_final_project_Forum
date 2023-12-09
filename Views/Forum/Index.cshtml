@@ -1,57 +1,45 @@
 ﻿@model _5510_final_project_Forum.Models.ForumView.ForumIndexModel
 <style>
-    body {
-       
-        font-family: 'Arial', sans-serif;
+    /* Microsoft-themed CSS for the second table */
+    #forumIndexTable {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #333;
+        background-color: #fff;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
     }
 
-    .text-center {
-        text-align: center;
-        color: #4285f4; /* Set text color to white for better visibility on the gradient background */
-    }
+        #forumIndexTable tbody tr:hover {
+            background-color: #f5f5f5;
+        }
 
-    .display-4 {
-        color: #4285f4; /* Set text color to white for better visibility on the gradient background */
-    }
+        #forumIndexTable th,
+        #forumIndexTable td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+        }
 
-    button {
-        background-color: #4285f4;
-        color: #fff;
-        padding: 10px 20px;
-        font-size: 16px;
-        margin: 10px;
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-    }
+        #forumIndexTable thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #ddd;
+            background-color: #f8f9fa;
+        }
+
+        #forumIndexTable tbody + tbody {
+            border-top: 2px solid #ddd;
+        }
+
+        #forumIndexTable .table {
+            background-color: #fff;
+        }
 
         button:hover {
             background-color: #3367d6;
         }
 </style>
-<h1>Forums</h1>
-<div class="card" id="forumIndexTable">
-    @foreach (var forum in Model.ForumList)
-    {
-        <div class="card-body">
-            <div class="card-title">
-                <a asp-controller="Forum" asp-action="Topic" asp-route-id="@forum.Id">
-                    @forum.Name
-                </a>
-            </div>
-            <div class="card-title">
-                @forum.Description
-            </div>
-            <div class="card-title">
-                @forum.ImageUrl
-            </div>
-        </div>
-    }
-</div>
-
-
-@*
+<h1>Forums Boards</h1>
 <table class="table table-hover" id=" = "forumIndexTable>
     <tboy>
         @foreach (var forum in Model.ForumList)
@@ -66,10 +54,9 @@
                     @forum.Description
                 </td>
                 <td>
-                    @forum.ImageUrl
+                    <img src=@forum.ImageUrl style ="max-width: 100px; max-height: 120px;">
                 </td>
             </tr>
         }
     </tboy>
 </table>
-*@

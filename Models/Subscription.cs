@@ -1,4 +1,6 @@
-﻿namespace _5510_final_project_Forum.Models
+﻿using System.ComponentModel;
+
+namespace _5510_final_project_Forum.Models
 {
     public class Subscription
     {

@@ -11,6 +11,7 @@ namespace _5510_final_project_Forum.Models.PostModels
         public string AuthorId { get; set; }
         public DateTime DatePosted { get; set; }
         public ForumListingModel Forum {  get; set; }
+        public Subscription? AuthorSubType { get; set; }
         public int RepliesCount { get; set; }
     }
 }
