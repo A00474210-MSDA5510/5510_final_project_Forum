@@ -43,6 +43,7 @@ namespace _5510_final_project_Forum.Controllers
             PaymentViewModel paymentViewModel = new PaymentViewModel();
             paymentViewModel.Subscription = subscription;
             return View("Payment",paymentViewModel);
+
         }
 
         [HttpPost]
@@ -52,7 +53,7 @@ namespace _5510_final_project_Forum.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             user.isSubbed = 1;
             IdentityResult result = await _userManager.UpdateAsync(user);
-            return RedirectToAction("Index","Forum");
+            return RedirectToAction("Index", "Forum");
         }
 
         public IActionResult ValidateCreditCardNo([Bind(Prefix = "CreditCard.CreditCardId")] String CreditCardId, [Bind(Prefix = "CreditCard.Type")] String CreditCardType)
