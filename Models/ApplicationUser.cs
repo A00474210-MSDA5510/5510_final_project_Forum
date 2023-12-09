@@ -19,6 +19,8 @@ namespace _5510_final_project_Forum.Models
         public string? Country { get; set; }
         [PersonalData]
         public string? PostalCode { get; set; }
+        [PersonalData]
+        public Subscription? Subscription { get; set; }
 
 
     }

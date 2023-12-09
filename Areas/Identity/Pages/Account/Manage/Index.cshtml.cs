@@ -81,8 +81,7 @@ namespace _5510_final_project_Forum.Areas.Identity.Pages.Account.Manage
             public string Country { get; set; }
 
             [Display(Name = "Postal code")]
-
-            //[RegularExpression(@"^[A-Z]\d[A-Z]\s{0,1}\d[A-Z]\d$")]
+            [Remote("ValidatePostalCode", "Home", AdditionalFields = "Country", ErrorMessage = "Invalid Postal Code")]
             public string PostalCode { get; set; }
 
         }

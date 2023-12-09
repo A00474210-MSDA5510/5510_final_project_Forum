@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using _5510_final_project_Forum.Data;
 using _5510_final_project_Forum.Models;
 using Newtonsoft.Json;
+using _5510_final_project_Forum.Models.ViewModels;
+using System.Text.RegularExpressions;
 
 namespace _5510_final_project_Forum.Controllers
 {
@@ -33,7 +35,31 @@ namespace _5510_final_project_Forum.Controllers
         {
             Subscription subscription = JsonConvert.DeserializeObject<Subscription>(selectedPlan);
             //ViewData["Subscription"]= subscription;
-            return View("Payment",subscription);
+            PaymentViewModel paymentViewModel = new PaymentViewModel();
+            paymentViewModel.Subscription = subscription;
+            Console.WriteLine("-------->Test A");
+            return View("Payment",paymentViewModel);
+        }
+
+        public IActionResult ValidateCreditCardNo([Bind(Prefix = "CreditCard.CreditCardId")] String CreditCardId, [Bind(Prefix = "CreditCard.Type")] String CreditCardType)
+        {
+            Console.WriteLine("-------->Test B"+CreditCardType);
+            if (CreditCardType.Equals("MasterCard"))
+            {
+                if (!Regex.Match(CreditCardId, "^5[1-5]([0-9]{14})$").Success)
+                    return Json("Invalid MasterCard Card No");
+            }
+            else if (CreditCardType.Equals("VISA"))
+            {
+                if (!Regex.Match(CreditCardId, "^4([0-9]{15})$").Success)
+                    return Content($"Invalid VISA Card No");
+            }
+            else if (CreditCardType.Equals("American Express"))
+            {
+                if (!Regex.Match(CreditCardId, "^3(4|7)([0-9]{13})$").Success)
+                    return Content($"Invalid American Express Card No");
+            }
+            return Content("Validation Passed");
         }
 
         // GET: Subscriptions/Details/5

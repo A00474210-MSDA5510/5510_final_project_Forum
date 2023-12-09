@@ -41,7 +41,7 @@
                 <span asp-validation-for="Input.Province" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <select asp-for="Input.Country" id="Country" class="form-control" onchange="updatePostalCodeValidation()">
+                <select asp-for="Input.Country" id="Country" class="form-control" onchange="enablePostalCode()">
                     <option value="">Select a Country</option>
                     <option value="Canada">Canada</option>
                     <option value="USA">USA</option>
@@ -61,34 +61,10 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        function updatePostalCodeValidation() {
-            var selectedCountry = document.getElementById('Country').value;
-            var postalCodeInput = document.getElementById('PostalCode');
-
-            // Enable/disable the Postal Code input based on the selected country
-            postalCodeInput.disabled = (selectedCountry === '');
-
-            // Set the regex pattern based on the selected country
-            var regexPattern = getRegexPatternForCountry(selectedCountry);
-
-            postalCodeInput.setAttribute('data-val-regex-pattern', regexPattern);
-
-            // Revalidate the Postal Code input
-            var validator = $('#PostalCode').validate();
-            validator.settings.rules.PostalCode.regex = new RegExp(regexPattern);
-            $('#PostalCode').valid();
-        }
-
-        function getRegexPatternForCountry(country) {
-            switch (country) {
-                case "USA":
-                    return "^\d{5}(?:-\d{4})?$";
-                case "Canada":
-                    return "^[A-Z]\d[A-Z]\s{0,1}\d[A-Z]\d$";
-                default:
-                    return "";
-            }
-
+        function enablePostalCode() {
+            var selectedCountry = $('#Country').val();
+            var postalCodeInput = $('#PostalCode');
+            postalCodeInput.prop('disabled', (selectedCountry === ''));
         }
     </script>
 }
