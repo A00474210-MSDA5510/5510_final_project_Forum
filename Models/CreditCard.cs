@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace _5510_final_project_Forum.Models
@@ -7,6 +8,7 @@ namespace _5510_final_project_Forum.Models
     {
         [Required]
         [Display(Name = "Credit Card No")]
+        [Remote("ValidateCreditCardNo", "Subscriptions", AdditionalFields = "Type", ErrorMessage = "Invalid Credit Card Id")]
         public string CreditCardId { get; set; }
         [Required]
         [Display(Name = "Credit Card Type")]
