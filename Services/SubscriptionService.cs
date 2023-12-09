@@ -8,16 +8,16 @@ namespace _5510_final_project_Forum.Services
     public class SubscriptionService : ISubscriptions
     {
         private readonly ApplicationDbContext _context;
-        private static UserManager<ApplicationUser> _userManager;
+        //private static UserManager<ApplicationUser> _userManager;
         public SubscriptionService(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
-            _userManager = userManager;
+            //_userManager = userManager;
         }
         public async Task Add(ApplicationUser user)
         {
             user.isSubbed = 1;
-            IdentityResult result = await _userManager.UpdateAsync(user);
+            //IdentityResult result = await _userManager.UpdateAsync(user);
         }
 
         public Task Delete(ApplicationUser user)
