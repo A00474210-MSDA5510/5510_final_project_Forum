@@ -4,8 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-_5510_final_project_Forum-bce8efed-2586-4939-9d10-27a59f48376d</UserSecretsId>
     <RootNamespace>_5510_final_project_Forum</RootNamespace>
+    <UserSecretsId>2322b552-7269-413b-af1a-415c330eb8b4</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
